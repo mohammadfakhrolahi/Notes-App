@@ -10,7 +10,7 @@ const InputText = () => {
       </BtnIcon>
       <input
         type="text"
-        className="grow bg-slate-50 py-2.5 rounded-full focus:outline-0 hidden md:block"
+        className="grow bg-slate-50 py-2.5 rounded-full focus:outline-0 "
         placeholder="Search"
       />
     </form>
