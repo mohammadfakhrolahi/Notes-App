@@ -3,8 +3,8 @@ import React from 'react'
 import Button from '../buttons/Button'
 import Badge from '../Badge/Badge'
 
-const Card = ({ label, note, title, className }) => {
-  const classes = `p-4 rounded-3xl ${className} || ''`
+const Card = ({ note, title, color, children, className }) => {
+  const classes = `p-4 rounded-3xl ${color} ${className} || ''`
   return (
     <div className={classes}>
       <div>
@@ -16,10 +16,7 @@ const Card = ({ label, note, title, className }) => {
         </div>
       </div>
 
-      <div className="flex items-center gap-2 my-3">
-        <Badge>{label}</Badge>
-        <Badge>{label}</Badge>
-      </div>
+      <div className="flex items-center gap-2 my-3">{children}</div>
 
       <div className="flex items-center gap-2">
         <Button className="btn-xs">
