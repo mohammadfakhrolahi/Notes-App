@@ -18,10 +18,10 @@ const CardList = () => {
       <h2 className='ms-4 mb-4'>Notes</h2>
 
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2'>
+      <Card title={title} note={note} label={label} className="bg-slate-300" />
+      <Card title={title} note={note} label={label} className="bg-rose-300" />
       <Card title={title} note={note} label={label} className="bg-purple-300" />
-      <Card title={title} note={note} label={label} className="bg-purple-300" />
-      <Card title={title} note={note} label={label} className="bg-purple-300" />
-      <Card title={title} note={note} label={label} className="bg-purple-300" />
+      <Card title={title} note={note} label={label} className="bg-blue-300" />
       <Card title={title} note={note} label={label} className="bg-purple-300" />
       <Card title={title} note={note} label={label} className="bg-purple-300" />
     </div>

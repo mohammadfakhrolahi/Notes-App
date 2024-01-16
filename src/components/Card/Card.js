@@ -26,13 +26,13 @@ const Card = ({ label, note, title, className }) => {
           <span className="material-symbols-rounded">more_vert</span>
         </Button>
         <Button className="btn-xs">
-          <span class="material-symbols-rounded">archive</span>
+          <span className="material-symbols-rounded">archive</span>
         </Button>
         <Button className="btn-xs">
-          <span class="material-symbols-rounded">delete</span>
+          <span className="material-symbols-rounded">delete</span>
         </Button>
         <Button className="btn-xs">
-          <span class="material-symbols-rounded">palette</span>
+          <span className="material-symbols-rounded">palette</span>
         </Button>
       </div>
     </div>
