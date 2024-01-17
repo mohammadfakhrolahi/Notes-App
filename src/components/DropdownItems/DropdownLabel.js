@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const DropdownLabel = () => {
+const DropdownLabel = ({ onClick }) => {
   const [checkbox, setCheckbox] = useState([
     { name: 'work', checked: false },
     { name: 'todo', checked: false },
@@ -13,6 +13,12 @@ const DropdownLabel = () => {
         item.name === name ? { ...item, checked: !item.checked } : item
       )
     )
+
+    const selectedLabels = checkbox
+      .filter((item) => item.checked)
+      .map((item) => item.name)
+
+    onClick(selectedLabels)
   }
 
   const renderCheckbox = (name, checked) => {
