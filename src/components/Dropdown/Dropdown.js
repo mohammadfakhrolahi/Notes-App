@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 
-const Dropdown = ({ icon, children, dropdownItems, onClick, value, colorClass }) => {
+const Dropdown = ({ icon, children, dropdownItems, onClick, value }) => {
   return (
     <div className="text-right">
       <Menu as="div" className="relative inline-block text-left">
