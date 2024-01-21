@@ -6,7 +6,6 @@ import Badge from '../Badge/Badge'
 
 const CardList = () => {
   const stateNotes = useSelector((state) => state.notes)
-  console.log(stateNotes)
 
   return (
     <div>

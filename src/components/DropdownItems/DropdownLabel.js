@@ -1,24 +1,17 @@
 import React, { useState } from 'react'
+import { connect, useSelector } from 'react-redux'
 
-const DropdownLabel = ({ onClick }) => {
-  const [checkbox, setCheckbox] = useState([
-    { name: 'work', checked: false },
-    { name: 'todo', checked: false },
-    { name: 'test', checked: false },
-  ])
+let labels = []
 
-  const handleCheckboxChange = (name) => {
-    setCheckbox((prevCheckbox) =>
-      prevCheckbox.map((item) =>
-        item.name === name ? { ...item, checked: !item.checked } : item
+const DropdownLabel = (props) => {
+  const stateLabel = useSelector((state) => state.label)
+
+  const checkboxChangeHandler = (name) => {
+    labels = stateLabel.map((item) =>
+      item.name === name ? { ...item, checked: !item.checked } : item
       )
-    )
 
-    const selectedLabels = checkbox
-      .filter((item) => item.checked)
-      .map((item) => item.name)
-
-    onClick(selectedLabels)
+    props.label(labels)
   }
 
   const renderCheckbox = (name, checked) => {
@@ -32,7 +25,7 @@ const DropdownLabel = ({ onClick }) => {
           className="hidden"
           name={name}
           checked={checked}
-          onChange={() => handleCheckboxChange(name)}
+          onChange={() => checkboxChangeHandler(name)}
         />
         <span className="material-symbols-rounded">
           {checked ? 'check_box' : 'check_box_outline_blank'}
@@ -44,9 +37,19 @@ const DropdownLabel = ({ onClick }) => {
 
   return (
     <div className="w-56 flex flex-col gap-1 px-1 py-2">
-      {checkbox.map((item) => renderCheckbox(item.name, item.checked))}
+      {stateLabel.map((item) => renderCheckbox(item.name, item.checked))}
     </div>
   )
 }
 
-export default DropdownLabel
+const mapStateToProps = (state) => {
+  return { label: state.label }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    label: () => dispatch({ type: 'CHECKBOX', label: labels }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DropdownLabel)
