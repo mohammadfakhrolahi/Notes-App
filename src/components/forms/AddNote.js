@@ -19,14 +19,6 @@ const AddNote = (props) => {
   const stateNote = useSelector((state) => state.notes)
   const stateLabel = useSelector((state) => state.label)
   labels = stateLabel.filter((item) => item.checked).map((item) => item.name)
-  // console.log(labels)
-
-  // Save note handler
-  const saveHandler = () => {
-    props.save()
-    // console.log(stateNote)
-    // console.log(stateLabel)
-  }
 
   // Title for new note
   const title = (e) => {
@@ -43,7 +35,18 @@ const AddNote = (props) => {
     e.preventDefault()
     const btnValue = e.currentTarget.value
     color = btnValue
-    // console.log(color)
+  }
+
+  // Save note handler
+  const saveHandler = () => {
+    props.save()
+    props.checkboxReset()
+    // Reset form inputs
+    document.getElementById('title').value = ''
+    document.getElementById('note').value = ''
+    titleValue = ''
+    noteValue = ''
+    color = 'bg-slate-300'
   }
 
   return (
@@ -52,6 +55,7 @@ const AddNote = (props) => {
         <div>
           <input
             type="text"
+            id="title"
             className="w-full bg-sky-100 py-2.5 px-4 rounded-3xl font-medium focus:outline-0"
             placeholder="Title"
             onChange={(e) => title(e)}
@@ -60,6 +64,7 @@ const AddNote = (props) => {
         <div>
           <textarea
             type="text"
+            id="note"
             rows={4}
             className="w-full bg-sky-50 py-2.5 px-4 rounded-3xl  focus:outline-0"
             placeholder="Take a note..."
@@ -120,6 +125,7 @@ const mapDispatchToProps = (dispatch) => {
         colorValue: color,
         labelValue: labels,
       }),
+    checkboxReset: () => dispatch({ type: 'CHECKBOXRESET' }),
   }
 }
 

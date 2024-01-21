@@ -29,6 +29,12 @@ const reducer = (state = initialState, action) => {
         label: action.label,
       }
 
+    case 'CHECKBOXRESET':
+      return {
+        ...state,
+        label: [],
+      }
+
     default:
       return state
   }
