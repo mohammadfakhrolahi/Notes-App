@@ -32,7 +32,11 @@ const reducer = (state = initialState, action) => {
     case 'CHECKBOXRESET':
       return {
         ...state,
-        label: [],
+        label: [
+          { name: 'work', checked: false },
+          { name: 'todo', checked: false },
+          { name: 'test', checked: false },
+        ],
       }
 
     default:
