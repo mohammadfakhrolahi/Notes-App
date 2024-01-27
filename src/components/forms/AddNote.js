@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { useSelector } from 'react-redux'
+import { v4 as uuidv4 } from 'uuid'
 
 import Button from '../buttons/Button'
 import Dropdown from '../Dropdown/Dropdown'
@@ -14,9 +15,9 @@ let titleValue = ''
 let noteValue = ''
 let color = 'bg-slate-300'
 let labels = []
+let id = ''
 
 const AddNote = (props) => {
-  const stateNote = useSelector((state) => state.notes)
   const stateLabel = useSelector((state) => state.label)
   labels = stateLabel.filter((item) => item.checked).map((item) => item.name)
 
@@ -47,6 +48,7 @@ const AddNote = (props) => {
     titleValue = ''
     noteValue = ''
     color = 'bg-slate-300'
+    id = uuidv4()
   }
 
   return (
@@ -124,6 +126,7 @@ const mapDispatchToProps = (dispatch) => {
         noteValue: noteValue,
         colorValue: color,
         labelValue: labels,
+        id: id,
       }),
     checkboxReset: () => dispatch({ type: 'CHECKBOXRESET' }),
   }

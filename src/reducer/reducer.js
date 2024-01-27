@@ -15,6 +15,7 @@ const reducer = (state = initialState, action) => {
         notes: [
           ...state.notes,
           {
+            id: action.id,
             title: action.titleValue,
             text: action.noteValue,
             color: action.colorValue,

@@ -15,10 +15,10 @@ const CardList = () => {
         {stateNotes.length == 0 ? (
           <p className='ms-4 text-slate-500'>Notes you add appear here</p>
         ) : (
-          stateNotes.map((item, index) => {
+          stateNotes.map((item) => {
             return (
               <Card
-                key={index}
+                key={item.id}
                 title={item.title}
                 note={item.text}
                 color={item.color}
