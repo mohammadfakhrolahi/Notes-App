@@ -15,7 +15,7 @@ let titleValue = ''
 let noteValue = ''
 let color = 'bg-slate-300'
 let labels = []
-let id = ''
+let id = uuidv4()
 
 const AddNote = (props) => {
   const stateLabel = useSelector((state) => state.label)
