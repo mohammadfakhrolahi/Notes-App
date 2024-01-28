@@ -27,7 +27,7 @@ const CardList = () => {
               <Card
                 key={item.id}
                 id={item.id}
-                title={item.id}
+                title={item.title}
                 note={item.text}
                 color={item.color}
                 onClick={() => deleteHandler(item.id)}
