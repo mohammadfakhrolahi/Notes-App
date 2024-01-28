@@ -3,10 +3,11 @@ import React from 'react'
 import Button from '../buttons/Button'
 import Badge from '../Badge/Badge'
 
-const Card = ({ note, title, color, children, className }) => {
+const Card = ({ note, title, color, children, className, id, onClick }) => {
   const classes = `flex flex-col justify-between p-4 rounded-3xl ${color} ${className} || ''`
+  
   return (
-    <div className={classes}>
+    <div className={classes} id={id} >
       <div>
         <div>
           <div>
@@ -27,7 +28,7 @@ const Card = ({ note, title, color, children, className }) => {
         <Button className="btn-xs">
           <span className="material-symbols-rounded">archive</span>
         </Button>
-        <Button className="btn-xs">
+        <Button className="btn-xs" onClick={onClick}>
           <span className="material-symbols-rounded">delete</span>
         </Button>
         <Button className="btn-xs">

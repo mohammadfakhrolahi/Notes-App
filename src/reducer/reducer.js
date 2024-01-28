@@ -40,6 +40,12 @@ const reducer = (state = initialState, action) => {
         ],
       }
 
+      case 'DELETE_NOTE':
+        return {
+          ...state,
+          notes: state.notes.filter((item) => item.id !== action.id),
+        }
+
     default:
       return state
   }
