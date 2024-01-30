@@ -114,7 +114,7 @@ const AddNote = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  return { note: state.note }
+  return { notes: state.notes }
 }
 
 const mapDispatchToProps = (dispatch) => {

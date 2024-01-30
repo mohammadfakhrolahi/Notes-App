@@ -1,15 +1,29 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, connect } from 'react-redux'
 
 import Card from '../Card/Card'
 import Badge from '../Badge/Badge'
+import DropdownColors from '../DropdownItems/DropdownColors'
 
-const CardList = () => {
+let noteId = ''
+let color = ''
+
+const CardList = (props) => {
   const stateNotes = useSelector((state) => state.notes)
-  const dispatch = useDispatch()
 
   const deleteHandler = (id) => {
-    dispatch({ type: 'DELETE_NOTE', id: id })
+    noteId = id
+    props.deleteNote()
+  }
+
+  const changeColorHandler = (e, id) => {
+    // e.preventDefault()
+    noteId = id
+    const btnValue = e.currentTarget.value
+    color = btnValue
+    console.log(btnValue)
+    console.log('clicked')
+    props.changeColor()
   }
 
   useEffect(() => {}, [stateNotes])
@@ -30,7 +44,8 @@ const CardList = () => {
                 title={item.title}
                 note={item.text}
                 color={item.color}
-                onClick={() => deleteHandler(item.id)}
+                deleteNote={() => deleteHandler(item.id)}
+                onClickColor={(e) => changeColorHandler(e, item.id)}
               >
                 {item.label.map((labels, index) => (
                   <Badge key={index}>{labels}</Badge>
@@ -44,4 +59,16 @@ const CardList = () => {
   )
 }
 
-export default CardList
+const mapStateToProps = (state) => {
+  return { notes: state.notes }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteNote: () => dispatch({ type: 'DELETE_NOTE', id: noteId }),
+    changeColor: () =>
+      dispatch({ type: 'CHANGE_COLOR', id: noteId, color: color }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardList)

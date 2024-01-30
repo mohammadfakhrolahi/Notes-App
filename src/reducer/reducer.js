@@ -5,6 +5,7 @@ const initialState = {
     { name: 'todo', checked: false },
     { name: 'test', checked: false },
   ],
+  noteChangedColor: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -40,11 +41,36 @@ const reducer = (state = initialState, action) => {
         ],
       }
 
-      case 'DELETE_NOTE':
+    case 'DELETE_NOTE':
+      return {
+        ...state,
+        notes: state.notes.filter((item) => item.id !== action.id),
+      }
+
+    case 'CHANGE_COLOR':
+      const note = state.notes.filter((item) => item.id === action.id)
+      const noteChanged = note.map((item) => {
         return {
-          ...state,
-          notes: state.notes.filter((item) => item.id !== action.id),
+          id: item.id,
+          title: item.title,
+          text: item.text,
+          color: action.color,
+          label: item.label,
         }
+      })
+
+      const noteList = state.notes.map((item) => {
+        if (item.id === action.id) {
+          return noteChanged[0]
+        } else {
+          return item
+        }
+      })
+
+      return {
+        ...state,
+        notes: noteList,
+      }
 
     default:
       return state
