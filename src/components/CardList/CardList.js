@@ -17,12 +17,9 @@ const CardList = (props) => {
   }
 
   const changeColorHandler = (e, id) => {
-    // e.preventDefault()
     noteId = id
     const btnValue = e.currentTarget.value
     color = btnValue
-    console.log(btnValue)
-    console.log('clicked')
     props.changeColor()
   }
 
