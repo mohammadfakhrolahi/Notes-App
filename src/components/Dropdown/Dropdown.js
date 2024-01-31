@@ -1,12 +1,13 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 
-const Dropdown = ({ icon, children, dropdownItems, onClick, value }) => {
+const Dropdown = ({ icon, children, dropdownItems, onClick, value, className }) => {
+  const classes = `btn-secondary duration-200 ${className} || ''`
   return (
     <div className="text-right">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="btn-secondary duration-200">
+          <Menu.Button className={classes.trim()}>
             {icon}
             {children}
           </Menu.Button>

@@ -45,13 +45,11 @@ const Card = ({
         <Button className="btn-xs" onClick={deleteNote}>
           <span className="material-symbols-rounded">delete</span>
         </Button>
-        <Button className="btn-xs">
-          <span className="material-symbols-rounded">palette</span>
-        </Button>
         <Dropdown
           dropdownItems={() => <DropdownColors onClick={onClickColor}/>}
+          className="btn-xs bg-transparent "
           icon={
-            <span className="material-symbols-rounded me-2 text-sm">
+            <span className="material-symbols-rounded">
               palette
             </span>
           }
