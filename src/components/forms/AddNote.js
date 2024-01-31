@@ -3,10 +3,7 @@ import { connect } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 
-import Button from '../buttons/Button'
-import Dropdown from '../Dropdown/Dropdown'
-import DropdownColors from '../DropdownItems/DropdownColors'
-import DropdownLabel from '../DropdownItems/DropdownLabel'
+import MainForm from './MainForm'
 
 import '../../index.css'
 
@@ -18,6 +15,7 @@ let labels = []
 let id = uuidv4()
 
 const AddNote = (props) => {
+  // const classes = `w-full sm:max-w-xl bg-sky-100 p-2 rounded-3xl ${props.className} || ''`
   const stateLabel = useSelector((state) => state.label)
   labels = stateLabel.filter((item) => item.checked).map((item) => item.name)
 
@@ -52,64 +50,12 @@ const AddNote = (props) => {
   }
 
   return (
-    <div className="w-full sm:max-w-xl bg-sky-100 p-2 rounded-3xl">
-      <form>
-        <div>
-          <input
-            type="text"
-            id="title"
-            className="w-full bg-sky-100 py-2.5 px-4 rounded-3xl font-medium focus:outline-0"
-            placeholder="Title"
-            onChange={(e) => title(e)}
-          />
-        </div>
-        <div>
-          <textarea
-            type="text"
-            id="note"
-            rows={4}
-            className="w-full bg-sky-50 py-2.5 px-4 rounded-3xl  focus:outline-0"
-            placeholder="Take a note..."
-            onChange={(e) => note(e)}
-          />
-        </div>
-
-        <div>
-          <div>
-            <div className="flex justify-end items-center gap-1 mt-4">
-              <Dropdown
-                dropdownItems={() => <DropdownLabel />}
-                // onClick={labelHandler}
-                icon={
-                  <span className="material-symbols-rounded me-2 text-sm">
-                    sell
-                  </span>
-                }
-              >
-                Label
-              </Dropdown>
-              <Dropdown
-                dropdownItems={DropdownColors}
-                onClick={colorHandler}
-                icon={
-                  <span className="material-symbols-rounded me-2 text-sm">
-                    palette
-                  </span>
-                }
-              >
-                Color
-              </Dropdown>
-            </div>
-          </div>
-          <hr className="border-t border-sky-300 my-2" />
-        </div>
-      </form>
-      <div className="flex justify-end items-center ">
-        <Button className="btn-primary" onClick={saveHandler}>
-          Save
-        </Button>
-      </div>
-    </div>
+    <MainForm
+      onChangeTitle={(e) => title(e)}
+      onChangeNote={(e) => note(e)}
+      onClickColor={colorHandler}
+      onClickSave={saveHandler}
+    />
   )
 }
 
