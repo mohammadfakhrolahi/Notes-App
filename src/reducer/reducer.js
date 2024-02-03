@@ -6,6 +6,8 @@ const initialState = {
     { name: 'test', checked: false },
   ],
   noteChangedColor: [],
+  backdrop: false,
+  modal: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -70,6 +72,44 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         notes: noteList,
+      }
+
+    case 'EDIT_NOTE':
+      const noteSelected = state.notes
+        .filter((item) => item.id === action.id)
+        .map(() => {
+          return {
+            id: action.id,
+            title: action.title,
+            text: action.text,
+            color: action.color,
+            label: action.label,
+          }
+        })
+
+      const noteListUpdated = state.notes.map((item) => {
+        if (item.id === action.id) {
+          return noteSelected[0]
+        } else {
+          return item
+        }
+      })
+
+      return {
+        ...state,
+        notes: noteListUpdated,
+      }
+
+    case 'BACKDROP':
+      return {
+        ...state,
+        backdrop: !state.backdrop,
+      }
+
+    case 'MODAL':
+      return {
+        ...state,
+        modal: !state.modal,
       }
 
     default:

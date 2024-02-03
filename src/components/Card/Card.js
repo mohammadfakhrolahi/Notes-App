@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Button from '../buttons/Button'
-import Badge from '../Badge/Badge'
 import Dropdown from '../Dropdown/Dropdown'
 import DropdownColors from '../DropdownItems/DropdownColors'
 
@@ -13,10 +12,8 @@ const Card = ({
   className,
   id,
   deleteNote,
-  changeColor,
-  dropdownItems,
   onClickColor,
-  value,
+  onClickEditNote,
 }) => {
   const classes = `flex flex-col justify-between p-4 rounded-3xl ${color} ${className} || ''`
 
@@ -36,8 +33,8 @@ const Card = ({
       </div>
 
       <div className="flex items-center gap-2">
-        <Button className="btn-xs">
-          <span className="material-symbols-rounded">more_vert</span>
+        <Button onClick={onClickEditNote} className="btn-xs">
+          <span className="material-symbols-rounded">edit_square</span>
         </Button>
         <Button className="btn-xs">
           <span className="material-symbols-rounded">archive</span>
@@ -46,15 +43,10 @@ const Card = ({
           <span className="material-symbols-rounded">delete</span>
         </Button>
         <Dropdown
-          dropdownItems={() => <DropdownColors onClick={onClickColor}/>}
+          dropdownItems={() => <DropdownColors onClick={onClickColor} />}
           className="btn-xs bg-transparent "
-          icon={
-            <span className="material-symbols-rounded">
-              palette
-            </span>
-          }
-        >
-        </Dropdown>
+          icon={<span className="material-symbols-rounded">palette</span>}
+        ></Dropdown>
       </div>
     </div>
   )

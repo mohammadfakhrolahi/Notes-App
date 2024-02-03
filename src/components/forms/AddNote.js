@@ -1,6 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { useSelector } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 
 import MainForm from './MainForm'
@@ -15,7 +14,6 @@ let labels = []
 let id = uuidv4()
 
 const AddNote = (props) => {
-  // const classes = `w-full sm:max-w-xl bg-sky-100 p-2 rounded-3xl ${props.className} || ''`
   const stateLabel = useSelector((state) => state.label)
   labels = stateLabel.filter((item) => item.checked).map((item) => item.name)
 

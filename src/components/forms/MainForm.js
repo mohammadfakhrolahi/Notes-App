@@ -11,6 +11,8 @@ const MainForm = ({
   onClickColor,
   onClickSave,
   className,
+  titleValue,
+  noteValue,
 }) => {
   const classes = `w-full sm:max-w-xl bg-sky-100 p-2 rounded-3xl ${className} || ''`
 
@@ -24,6 +26,7 @@ const MainForm = ({
             className="w-full bg-sky-100 py-2.5 px-4 rounded-3xl font-medium focus:outline-0"
             placeholder="Title"
             onChange={onChangeTitle}
+            defaultValue={titleValue}
           />
         </div>
         <div>
@@ -34,6 +37,7 @@ const MainForm = ({
             className="w-full bg-sky-50 py-2.5 px-4 rounded-3xl  focus:outline-0"
             placeholder="Take a note..."
             onChange={onChangeNote}
+            defaultValue={noteValue}
           />
         </div>
 
