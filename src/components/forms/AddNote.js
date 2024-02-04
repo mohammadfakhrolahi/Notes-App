@@ -3,6 +3,7 @@ import { connect, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 
 import MainForm from './MainForm'
+import axios from '../../axios/axios'
 
 import '../../index.css'
 
@@ -14,7 +15,9 @@ let labels = []
 let id = uuidv4()
 
 const AddNote = (props) => {
+  const stateNote = useSelector((state) => state.notes)
   const stateLabel = useSelector((state) => state.label)
+
   labels = stateLabel.filter((item) => item.checked).map((item) => item.name)
 
   // Title for new note
@@ -35,7 +38,24 @@ const AddNote = (props) => {
   }
 
   // Save note handler
-  const saveHandler = () => {
+  const saveHandler = async () => {
+    const noteData = {
+      id: id,
+      title: titleValue,
+      text: noteValue,
+      color: color,
+      label: labels,
+    }
+
+    try {
+      const res = await axios.post(
+        '/notes.json',
+        noteData
+      )
+    } catch (error) {
+      console.log('Error saving note:', error)
+    }
+
     props.save()
     props.checkboxReset()
     // Reset form inputs
