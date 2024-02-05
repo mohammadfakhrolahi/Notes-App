@@ -39,16 +39,7 @@ const AddNote = (props) => {
 
   // Save note handler
   const saveHandler = async () => {
-    props.save()
-    props.checkboxReset()
-    // Reset form inputs
-    document.getElementById('title').value = ''
-    document.getElementById('note').value = ''
-    titleValue = ''
-    noteValue = ''
-    color = 'bg-slate-300'
-    id = uuidv4()
-
+    console.log(labels)
     const noteData = {
       id: id,
       title: titleValue,
@@ -58,10 +49,20 @@ const AddNote = (props) => {
     }
 
     try {
-      const res = await axios.post('/notes.json', noteData)
+      await axios.post('/notes.json', noteData)
     } catch (error) {
       console.log('Error saving note:', error)
     }
+
+      props.save()
+      props.checkboxReset()
+      // Reset form inputs
+      document.getElementById('title').value = ''
+      document.getElementById('note').value = ''
+      titleValue = ''
+      noteValue = ''
+      color = 'bg-slate-300'
+      id = uuidv4()
   }
 
   return (

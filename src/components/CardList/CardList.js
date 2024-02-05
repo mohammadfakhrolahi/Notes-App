@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react'
-import { useSelector, connect } from 'react-redux'
+import { useSelector, connect, useDispatch } from 'react-redux'
 
 import Card from '../Card/Card'
 import Badge from '../Badge/Badge'
 import EditNoteModal from '../EditNoteModal/EditNoteModal'
+import axios from '../../axios/axios'
 
 let noteId = ''
 let color = ''
 let titleValue = ''
 let noteValue = ''
 let labels = []
-let ModalData = null
+let ModalData = []
+let payload = null
 
 const CardList = (props) => {
   const stateNotes = useSelector((state) => state.notes)
   const stateModal = useSelector((state) => state.modal)
   const stateLabel = useSelector((state) => state.label)
+
   // Delete note
   const deleteHandler = (id) => {
     noteId = id
@@ -71,16 +74,38 @@ const CardList = (props) => {
     props.editNote()
     props.backdrop()
     props.modal()
-
-    // if ()
-
     // Reset form inputs
     titleValue = ''
     noteValue = ''
     color = ''
   }
+  const dispatch = useDispatch()
 
-  useEffect(() => {}, [stateNotes])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        axios
+          .get('/notes.json')
+          .then((res) => {
+            const data = res.data
+            const notesArray = []
+    
+            for (const key in res.data) {
+              if (res.data.hasOwnProperty(key)) {
+                const note = res.data[key]
+                notesArray.push(note)
+              }
+            }
+    
+            dispatch({ type: 'UPDATE_NOTES', payload: notesArray })
+          })
+        } catch (error) {
+        console.error('Error fetching notes:', error)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   return (
     <div>
@@ -89,8 +114,8 @@ const CardList = (props) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
         {stateNotes.length == 0 ? (
           <p className="ms-4 text-slate-500">Notes you add appear here</p>
-        ) : (
-          stateNotes.map((item) => {
+          ) : (
+          stateNotes?.map((item) => {
             return (
               <Card
                 key={item.id}
@@ -102,15 +127,16 @@ const CardList = (props) => {
                 onClickColor={(e) => changeColorHandler(e, item.id)}
                 onClickEditNote={() => editNoteHandler(item.id)}
               >
-                {item.label.map((labels, index) => (
+                {item.label?.map((labels, index) => (
                   <Badge key={index}>{labels}</Badge>
                 ))}
               </Card>
             )
           })
-        )}
+        )
+        }
       </div>
-      {stateModal
+      {ModalData
         ? ModalData.map((item) => {
             return (
               <EditNoteModal
@@ -150,6 +176,7 @@ const mapDispatchToProps = (dispatch) => {
         label: labels,
       }),
     checkboxReset: () => dispatch({ type: 'CHECKBOXRESET' }),
+    updateNotes: () => dispatch({ type: 'UPDATE_NOTES', payload: payload }),
   }
 }
 

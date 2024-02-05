@@ -112,6 +112,12 @@ const reducer = (state = initialState, action) => {
         modal: !state.modal,
       }
 
+    case 'UPDATE_NOTES':
+      return {
+        ...state,
+        notes: action.payload
+      }
+
     default:
       return state
   }
