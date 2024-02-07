@@ -15,14 +15,37 @@ let ModalData = []
 let payload = null
 
 const CardList = (props) => {
+  const dispatch = useDispatch()
   const stateNotes = useSelector((state) => state.notes)
-  const stateModal = useSelector((state) => state.modal)
   const stateLabel = useSelector((state) => state.label)
 
   // Delete note
-  const deleteHandler = (id) => {
+  const deleteHandler = async (id) => {
     noteId = id
-    props.deleteNote()
+    let noteKey = ''
+
+    try {
+      await axios.get(`/notes.json`).then((res) => {
+        const index = stateNotes.findIndex((item) => item.id === id)
+        const objects = Object.keys(res.data)
+        noteKey = objects[index]
+      })
+
+      await axios.delete(`/notes/${noteKey}.json`)
+      props.deleteNote()
+    } catch (error) {
+      console.log(`Can't delete note! ${error}`)
+      if (error.response) {
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        console.log(error.request)
+      } else {
+        console.log('Error', error.message)
+      }
+      console.log(error.config)
+    }
   }
 
   // Change color
@@ -79,27 +102,22 @@ const CardList = (props) => {
     noteValue = ''
     color = ''
   }
-  const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        axios
-          .get('/notes.json')
-          .then((res) => {
-            const data = res.data
-            const notesArray = []
-    
-            for (const key in res.data) {
-              if (res.data.hasOwnProperty(key)) {
-                const note = res.data[key]
-                notesArray.push(note)
-              }
+        axios.get('/notes.json').then((res) => {
+          const notesArray = []
+          for (const item in res.data) {
+            if (res.data.hasOwnProperty(item)) {
+              const note = res.data[item]
+              notesArray.push(note)
             }
-    
-            dispatch({ type: 'UPDATE_NOTES', payload: notesArray })
-          })
-        } catch (error) {
+          }
+
+          dispatch({ type: 'UPDATE_NOTES', payload: notesArray })
+        })
+      } catch (error) {
         console.error('Error fetching notes:', error)
       }
     }
@@ -114,7 +132,7 @@ const CardList = (props) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
         {stateNotes.length == 0 ? (
           <p className="ms-4 text-slate-500">Notes you add appear here</p>
-          ) : (
+        ) : (
           stateNotes?.map((item) => {
             return (
               <Card
@@ -133,8 +151,7 @@ const CardList = (props) => {
               </Card>
             )
           })
-        )
-        }
+        )}
       </div>
       {ModalData
         ? ModalData.map((item) => {

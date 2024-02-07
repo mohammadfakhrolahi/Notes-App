@@ -39,7 +39,6 @@ const AddNote = (props) => {
 
   // Save note handler
   const saveHandler = async () => {
-    console.log(labels)
     const noteData = {
       id: id,
       title: titleValue,
