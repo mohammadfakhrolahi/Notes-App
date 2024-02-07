@@ -54,7 +54,9 @@ const CardList = (props) => {
     let noteKey = ''
     color = e.currentTarget.value
 
-    const index = stateNotes.filter(item => item.id === id).map((note) => note)
+    const index = stateNotes
+      .filter((item) => item.id === id)
+      .map((note) => note)
     const noteData = {
       id: index[0].id,
       title: index[0].title,
@@ -62,6 +64,8 @@ const CardList = (props) => {
       color: color,
       label: index[0].label,
     }
+
+    props.changeColor()
 
     try {
       await axios.get(`/notes.json`).then((res) => {
@@ -71,7 +75,6 @@ const CardList = (props) => {
       })
 
       await axios.put(`/notes/${noteKey}.json`, noteData)
-      
     } catch (error) {
       console.log(`Can't delete note! ${error}`)
       if (error.response) {
@@ -85,8 +88,6 @@ const CardList = (props) => {
       }
       console.log(error.config)
     }
-
-    props.changeColor()
   }
 
   // Edit title
