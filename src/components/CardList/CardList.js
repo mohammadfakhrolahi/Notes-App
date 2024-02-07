@@ -55,7 +55,6 @@ const CardList = (props) => {
     color = e.currentTarget.value
 
     const index = stateNotes.filter(item => item.id === id).map((note) => note)
-    console.log(index[0])
     const noteData = {
       id: index[0].id,
       title: index[0].title,
@@ -63,7 +62,6 @@ const CardList = (props) => {
       color: color,
       label: index[0].label,
     }
-    console.log(noteData)
 
     try {
       await axios.get(`/notes.json`).then((res) => {
