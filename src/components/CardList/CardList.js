@@ -49,10 +49,45 @@ const CardList = (props) => {
   }
 
   // Change color
-  const changeColorHandler = (e, id) => {
+  const changeColorHandler = async (e, id) => {
     noteId = id
-    const btnValue = e.currentTarget.value
-    color = btnValue
+    let noteKey = ''
+    color = e.currentTarget.value
+
+    const index = stateNotes.filter(item => item.id === id).map((note) => note)
+    console.log(index[0])
+    const noteData = {
+      id: index[0].id,
+      title: index[0].title,
+      text: index[0].text,
+      color: color,
+      label: index[0].label,
+    }
+    console.log(noteData)
+
+    try {
+      await axios.get(`/notes.json`).then((res) => {
+        const index = stateNotes.findIndex((item) => item.id === id)
+        const objects = Object.keys(res.data)
+        noteKey = objects[index]
+      })
+
+      await axios.put(`/notes/${noteKey}.json`, noteData)
+      
+    } catch (error) {
+      console.log(`Can't delete note! ${error}`)
+      if (error.response) {
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        console.log(error.request)
+      } else {
+        console.log('Error', error.message)
+      }
+      console.log(error.config)
+    }
+
     props.changeColor()
   }
 
