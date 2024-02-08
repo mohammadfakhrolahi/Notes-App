@@ -36,9 +36,6 @@ const Card = ({
         <Button onClick={onClickEditNote} className="btn-xs">
           <span className="material-symbols-rounded">edit_square</span>
         </Button>
-        <Button className="btn-xs">
-          <span className="material-symbols-rounded">archive</span>
-        </Button>
         <Button className="btn-xs" onClick={deleteNote}>
           <span className="material-symbols-rounded">delete</span>
         </Button>
