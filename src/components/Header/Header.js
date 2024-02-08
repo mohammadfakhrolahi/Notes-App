@@ -27,7 +27,7 @@ const Header = () => {
 
   return (
     <header className="mx-4">
-      <div className="container flex justify-between items-center bg-sky-100 dark:bg-slate-700 p-2 py-2 px-4 sm:px-10 mt-4  mx-auto rounded-full shadow-md">
+      <div className="container flex justify-between items-center gap-2 bg-sky-100 dark:bg-slate-700 p-2 py-2 px-4 sm:px-10 mt-4  mx-auto rounded-full shadow-md">
         <Logo />
         <div className="md:grow max-w-2xl">
           <TextInput />
