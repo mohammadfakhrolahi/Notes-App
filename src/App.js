@@ -10,7 +10,7 @@ function App() {
   const modal = useSelector(state => state.modal)
 
   return (
-    <div>
+    <div className='pb-16'>
       <Header/>
       <Main/>
       {backdrop ? <Backdrop/> : null}

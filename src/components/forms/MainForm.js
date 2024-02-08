@@ -14,7 +14,7 @@ const MainForm = ({
   titleValue,
   noteValue,
 }) => {
-  const classes = `w-full sm:max-w-xl bg-sky-100 p-2 rounded-3xl ${className} || ''`
+  const classes = `w-full sm:max-w-xl bg-sky-100 dark:bg-slate-700 p-2 rounded-3xl ${className} || ''`
 
   return (
     <div className={classes.trim()}>
@@ -23,7 +23,7 @@ const MainForm = ({
           <input
             type="text"
             id="title"
-            className="w-full bg-sky-100 py-2.5 px-4 rounded-3xl font-medium focus:outline-0"
+            className="w-full bg-sky-100 dark:bg-slate-700 dark:text-slate-100 py-2.5 px-4 rounded-3xl font-medium focus:outline-0"
             placeholder="Title"
             onChange={onChangeTitle}
             defaultValue={titleValue}
@@ -34,7 +34,7 @@ const MainForm = ({
             type="text"
             id="note"
             rows={4}
-            className="w-full bg-sky-50 py-2.5 px-4 rounded-3xl  focus:outline-0"
+            className="w-full bg-sky-50 dark:bg-slate-600 dark:text-slate-100 py-2.5 px-4 rounded-3xl  focus:outline-0"
             placeholder="Take a note..."
             onChange={onChangeNote}
             defaultValue={noteValue}
@@ -67,7 +67,7 @@ const MainForm = ({
               </Dropdown>
             </div>
           </div>
-          <hr className="border-t border-sky-300 my-2" />
+          <hr className="border-t border-slate-500 my-2" />
         </div>
       </form>
       <div className="flex justify-end items-center ">

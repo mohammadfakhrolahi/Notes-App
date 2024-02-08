@@ -185,7 +185,7 @@ const CardList = (props) => {
 
   return (
     <div>
-      <h2 className="ms-4 mb-8 text-4xl text-slate-700">Notes</h2>
+      <h2 className="ms-4 mb-8 text-4xl text-slate-700 dark:text-slate-100">Notes</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
         {stateNotes.length == 0 ? (
