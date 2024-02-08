@@ -54,6 +54,7 @@ const CardList = (props) => {
     let noteKey = ''
     color = e.currentTarget.value
 
+    // Get note data from notes state
     const index = stateNotes
       .filter((item) => item.id === id)
       .map((note) => note)
@@ -127,10 +128,32 @@ const CardList = (props) => {
   }
 
   // Save edited note
-  const saveHandler = () => {
+  const saveHandler = async () => {
     props.editNote()
     props.backdrop()
     props.modal()
+
+    let noteKey = ''
+    const noteData = {
+      id: noteId,
+      title: titleValue,
+      text: noteValue,
+      color: color,
+      label: labels,
+    }
+
+    try {
+      await axios.get(`/notes.json`).then((res) => {
+        const index = stateNotes.findIndex((item) => item.id === noteId)
+        const objects = Object.keys(res.data)
+        noteKey = objects[index]
+      })
+
+      await axios.put(`/notes/${noteKey}.json`, noteData)
+    } catch (error) {
+      console.log(`Can't edit note! ${error}`)
+    }
+
     // Reset form inputs
     titleValue = ''
     noteValue = ''
