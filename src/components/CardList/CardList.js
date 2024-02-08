@@ -18,6 +18,7 @@ const CardList = (props) => {
   const dispatch = useDispatch()
   const stateNotes = useSelector((state) => state.notes)
   const stateLabel = useSelector((state) => state.label)
+  const stateModal = useSelector((state) => state.modal)
 
   // Delete note
   const deleteHandler = async (id) => {
@@ -210,7 +211,7 @@ const CardList = (props) => {
           })
         )}
       </div>
-      {ModalData
+      {stateModal
         ? ModalData.map((item) => {
             return (
               <EditNoteModal
