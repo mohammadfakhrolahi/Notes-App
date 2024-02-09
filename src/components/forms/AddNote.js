@@ -13,6 +13,7 @@ let noteValue = ''
 let color = 'bg-slate-300'
 let labels = []
 let id = uuidv4()
+let date = null
 
 const AddNote = (props) => {
   const stateNote = useSelector((state) => state.notes)
@@ -39,12 +40,15 @@ const AddNote = (props) => {
 
   // Save note handler
   const saveHandler = async () => {
+    date = new Date().getTime()
+    console.log(date)
     const noteData = {
       id: id,
       title: titleValue,
       text: noteValue,
       color: color,
       label: labels,
+      date: date,
     }
 
     try {
